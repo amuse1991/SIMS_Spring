@@ -1,4 +1,4 @@
-package io.github.amuse.sims_server_spring.domain.satellites;
+package io.github.amuse.sims_server_spring.domain.satellite;
 
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -11,19 +11,25 @@ import java.util.Date;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 @Entity
-public class Satellites {
+@Table(name = "satellite")
+public class Satellite {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(updatable = false)
-    private Long satelliteCode;
+    @Column(name="SatelliteCode", updatable = false)
+    private String satelliteCode;
 
+    @Column(name="SatelliteName")
     private String satelliteName;
+
+    @Column(name="ImgSource")
     private String imgSource;
+
+    @Column(name = "LaunchDate")
     private Date launchDate;
 
     @Builder
-    public Satellites(String satelliteName, String imgSource, Date launchDate) {
+    public Satellite(String satelliteCode, String satelliteName, String imgSource, Date launchDate) {
+        this.satelliteCode = satelliteCode;
         this.satelliteName = satelliteName;
         this.imgSource = imgSource;
         this.launchDate = launchDate;
@@ -31,8 +37,8 @@ public class Satellites {
 
     @Override
     public String toString() {
-        return "Satellites{" +
-                "satelliteCode=" + satelliteCode +
+        return "Satellite{" +
+                "satelliteCode='" + satelliteCode + '\'' +
                 ", satelliteName='" + satelliteName + '\'' +
                 ", imgSource='" + imgSource + '\'' +
                 ", launchDate=" + launchDate +

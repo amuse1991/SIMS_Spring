@@ -11,19 +11,25 @@ import java.util.Date;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 @Entity
+@Table(name="tm_meta")
 public class TmMeta {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(updatable = false)
+    @Column(name="TelemetryCode", updatable = false)
     private Long telemetryCode;
 
-    private Long satelliteCode;
+    @Column(name="SatelliteCode")
+    private String satelliteCode;
+
+    @Column(name="TelemetryName")
     private String telemetryName;
+
+    @Column(name="DataTableName")
     private String dataTableName;
 
     @Builder
-    public TmMeta(Long satelliteCode, String telemetryName, String dataTableName) {
+    public TmMeta(String satelliteCode, String telemetryName, String dataTableName) {
         this.satelliteCode = satelliteCode;
         this.telemetryName = telemetryName;
         this.dataTableName = dataTableName;
