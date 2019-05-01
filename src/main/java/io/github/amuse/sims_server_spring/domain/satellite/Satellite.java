@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -25,10 +26,10 @@ public class Satellite {
     private String imgSource;
 
     @Column(name = "LaunchDate")
-    private Date launchDate;
+    private LocalDateTime launchDate;
 
     @Builder
-    public Satellite(String satelliteCode, String satelliteName, String imgSource, Date launchDate) {
+    public Satellite(String satelliteCode, String satelliteName, String imgSource, LocalDateTime launchDate) {
         this.satelliteCode = satelliteCode;
         this.satelliteName = satelliteName;
         this.imgSource = imgSource;

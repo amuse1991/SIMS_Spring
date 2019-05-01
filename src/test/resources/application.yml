@@ -22,28 +22,15 @@ spring:
   session:
     jdbc:
       initialize-schema: always
-
-# 운영 환경
 ---
 spring:
-  profiles: set1
-
-  jpa:
-    hibernate:
-      ddl-auto: update
-    show-sql: true
-    database: mysql
-
+  profiles: local_h2
   datasource:
-    url: jdbc:mysql://localhost:3306/studytime?useUnicode=true&charaterEncoding=utf-8?&serverTimezone=UTC
-    username: "local_admin"
-    password: "01062581441"
-    driver-class-name: com.mysql.jdbc.Driver
-    platform: mysql
-
-  session:
-    jdbc:
-      initialize-schema: always
-
-server:
-  port: 8081
+    data: classpath:data-h2.sql
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: create-drop
+  h2:
+    console:
+      enabled: true
