@@ -1,9 +1,6 @@
 package io.github.amuse.sims_server_spring.domain.satellite;
 
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -11,21 +8,16 @@ import java.util.Date;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
+@Setter
 @Entity
 @Table(name = "satellite")
 public class Satellite {
 
     @Id
-    @Column(name="SatelliteCode", updatable = false)
-    private String satelliteCode;
-
-    @Column(name="SatelliteName")
+    @Column(updatable = false)
+    @Setter(AccessLevel.NONE) private String satelliteCode;
     private String satelliteName;
-
-    @Column(name="ImgSource")
     private String imgSource;
-
-    @Column(name = "LaunchDate")
     private LocalDateTime launchDate;
 
     @Builder

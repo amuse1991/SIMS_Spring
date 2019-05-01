@@ -1,43 +1,44 @@
 package io.github.amuse.sims_server_spring.controller.satellite;
 
-import io.github.amuse.sims_server_spring.dto.satellite.SatelliteInfoReqDto;
-import io.github.amuse.sims_server_spring.dto.satellite.SatelliteInfoResDto;
+import io.github.amuse.sims_server_spring.dto.satellite.SatelliteInfoDto;
+import io.github.amuse.sims_server_spring.service.satellite.SatelliteService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
 @RestController
 @AllArgsConstructor
 public class SatelliteController {
 
+    SatelliteService satelliteService;
+
     // 위성 정보
     @GetMapping("/satellites")
-    public List<SatelliteInfoResDto> getSatelliteList(@RequestParam(value = "code", required = false) String satellieCode,
-                                                      @RequestParam(required = false, defaultValue = "0") int startAt,
-                                                      @RequestParam(required = false, defaultValue = "50") int maxResult){
-        return null;
+    public List<SatelliteInfoDto> getSatelliteList(@RequestParam(value = "code", required = false) String satellieCode,
+                                                   @RequestParam(required = false, defaultValue = "0") int startAt,
+                                                   @RequestParam(required = false, defaultValue = "50") int maxResult){
+        return satelliteService.getSatelliteList(satellieCode,startAt,maxResult);
     }
 
     @GetMapping("/satellites/{satelliteCode}")
-    public SatelliteInfoResDto getSatelliteInfo(@PathVariable String satelliteCode){
-        return null;
+    public SatelliteInfoDto getSatelliteInfo(@PathVariable String satelliteCode){
+        return satelliteService.getSatelliteInfo(satelliteCode);
     }
 
     @PostMapping("/satellites")
-    public SatelliteInfoResDto createSatellite(@RequestBody SatelliteInfoReqDto reqForm){
-        return null;
+    public SatelliteInfoDto createSatellite(@RequestBody SatelliteInfoDto reqForm){
+        return satelliteService.createSatellite(reqForm);
     }
 
     @PutMapping("/satellites/{satelliteCode}")
-    public SatelliteInfoResDto updateSatellite(@PathVariable String satelliteCode,
-                                               @RequestBody SatelliteInfoReqDto reqForm){
-        return null;
+    public SatelliteInfoDto updateSatellite(@PathVariable String satelliteCode,
+                                            @RequestBody SatelliteInfoDto reqForm){
+        return satelliteService.updateSatellite(satelliteCode,reqForm);
     }
 
     @DeleteMapping("/satellites/{satelliteCode}")
     public String deleteSatellite(@PathVariable String satelliteCode){
-        return null;
+        return satelliteService.deleteSatellite(satelliteCode);
     }
 
     // 위성의 TM 정보

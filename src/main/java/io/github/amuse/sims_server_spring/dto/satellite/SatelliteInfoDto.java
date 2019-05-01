@@ -6,14 +6,14 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class SatelliteInfoResDto {
+public class SatelliteInfoDto {
     private String satelliteCode;
     private String satelliteName;
     private String imgSource;
     private String launchDate;
 
     @Builder
-    public SatelliteInfoResDto(String satelliteCode, String satelliteName, String imgSource, String launchDate) {
+    public SatelliteInfoDto(String satelliteCode, String satelliteName, String imgSource, String launchDate) {
         this.satelliteCode = satelliteCode;
         this.satelliteName = satelliteName;
         this.imgSource = imgSource;
@@ -22,7 +22,7 @@ public class SatelliteInfoResDto {
 
     @Override
     public String toString() {
-        return "SatelliteInfoResDto{" +
+        return "SatelliteInfoDto{" +
                 "satelliteCode='" + satelliteCode + '\'' +
                 ", satelliteName='" + satelliteName + '\'' +
                 ", imgSource='" + imgSource + '\'' +

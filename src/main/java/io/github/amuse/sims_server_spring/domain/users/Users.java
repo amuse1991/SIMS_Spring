@@ -12,28 +12,14 @@ public class Users {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="UserCode", updatable = false)
+    @Column(updatable = false)
     private Long userCode;
-
-    @Column(name = "UserId")
     private String userId;
-
-    @Column(name="Password")
     private String password;
-
-    @Column(name = "Name")
     private String userName;
-
-    @Column(name="Dept")
     private String dept;
-
-    @Column(name="Position")
     private String position;
-
-    @Column(name="Email")
     private String email;
-
-    @Column(name="Phone")
     private String phone;
 
     @Builder

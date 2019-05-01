@@ -16,16 +16,10 @@ public class TmMeta {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="TelemetryCode", updatable = false)
+    @Column(updatable = false)
     private Long telemetryCode;
-
-    @Column(name="SatelliteCode")
     private String satelliteCode;
-
-    @Column(name="TelemetryName")
     private String telemetryName;
-
-    @Column(name="DataTableName")
     private String dataTableName;
 
     @Builder

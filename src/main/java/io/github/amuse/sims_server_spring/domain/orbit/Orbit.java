@@ -15,25 +15,13 @@ import java.util.Date;
 public class Orbit {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="DataCode", updatable = false)
+    @Column(updatable = false)
     private Long dataCode;
-
-    @Column(name = "SatelliteCode")
     private String satelliteCode;
-
-    @Column(name="UTCTime")
     private Date utcTime;
-
-    @Column(name="Lat")
     private Double lat;
-
-    @Column(name="Long")
     private Double lng;
-
-    @Column(name="Alt")
     private Double alt;
-
-    @Column(name="DateOfEntry")
     private Date dateOfEntry;
 
     @Builder

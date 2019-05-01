@@ -14,16 +14,10 @@ import javax.persistence.*;
 public class TcMeta {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="TelecommandCode",updatable = false)
+    @Column(updatable = false)
     private Long telecommandCode;
-
-    @Column(name="SatelliteCode")
     private String satelliteCode;
-
-    @Column(name="TelecommandName")
     private String telecommandName;
-
-    @Column(name="DataTableName")
     private String dataTableName;
 
     @Builder

@@ -14,19 +14,11 @@ import javax.persistence.*;
 public class TmDataMeta {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="TmDataMetaCode",updatable = false)
+    @Column(updatable = false)
     private Long tmDataMetaCode;
-
-    @Column(name="TelemetryCode")
     private Long telemetryCode;
-
-    @Column(name="DataName")
     private String dataName;
-
-    @Column(name="ChartType")
     private String chartType;
-
-    @Column(name="ChartGroup")
     private String chartGroup;
 
     @Builder
