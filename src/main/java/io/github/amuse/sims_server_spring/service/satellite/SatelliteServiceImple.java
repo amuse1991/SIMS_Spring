@@ -47,7 +47,7 @@ public class SatelliteServiceImple implements SatelliteService {
     @Override
     public SatelliteInfoDto getSatelliteInfo(String satelliteCode) {
         Satellite satellite = satelliteRepository.findById(satelliteCode)
-                .orElseThrow(()->new EntityNotFoundException());
+                .orElseThrow(()->new EntityNotFoundException("can't find satellite "+satelliteCode));
         return SatelliteInfoDto.builder()
                 .satelliteCode(satellite.getSatelliteCode())
                 .satelliteName(satellite.getSatelliteName())
@@ -90,7 +90,7 @@ public class SatelliteServiceImple implements SatelliteService {
 
         // 조회
         Satellite satellite = satelliteRepository.findById(satelliteCode)
-                .orElseThrow(()->new EntityNotFoundException());
+                .orElseThrow(()->new EntityNotFoundException("can't find satellite "+satelliteCode));
 
         // 날짜 데이터 파싱
         LocalDateTime launchDate = LocalDateTime.parse(reqForm.getLaunchDate(),DateTimeFormatter.ofPattern("yyyy-MM-dd"));
