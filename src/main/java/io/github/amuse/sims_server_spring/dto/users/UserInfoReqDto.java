@@ -1,22 +1,12 @@
-package io.github.amuse.sims_server_spring.domain.users;
+package io.github.amuse.sims_server_spring.dto.users;
 
 import lombok.*;
 
-import javax.persistence.*;
-
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 @Setter
-@Entity
-@Table(name="user")
-public class Users {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(updatable = false)
+public class UserInfoReqDto {
     private Long userCode;
-    @Column(updatable = false)
-    @Setter(AccessLevel.NONE) private String userId;
+    private String userId;
     private String password;
     private String userName;
     private String dept;
@@ -25,7 +15,8 @@ public class Users {
     private String phone;
 
     @Builder
-    public Users(String userId, String password, String userName, String dept, String position, String email, String phone) {
+    public UserInfoReqDto(Long userCode, String userId, String password, String userName, String dept, String position, String email, String phone) {
+        this.userCode = userCode;
         this.userId = userId;
         this.password = password;
         this.userName = userName;
@@ -37,7 +28,7 @@ public class Users {
 
     @Override
     public String toString() {
-        return "Users{" +
+        return "UserInfoReqDto{" +
                 "userCode=" + userCode +
                 ", userId='" + userId + '\'' +
                 ", password='" + password + '\'' +
