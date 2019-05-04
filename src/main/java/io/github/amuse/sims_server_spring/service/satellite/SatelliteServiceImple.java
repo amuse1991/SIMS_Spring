@@ -2,7 +2,14 @@ package io.github.amuse.sims_server_spring.service.satellite;
 
 import io.github.amuse.sims_server_spring.domain.satellite.Satellite;
 import io.github.amuse.sims_server_spring.domain.satellite.SatelliteRepository;
+import io.github.amuse.sims_server_spring.domain.telecommand.TcMetaRepository;
+import io.github.amuse.sims_server_spring.domain.telemetry.TmMeta;
+import io.github.amuse.sims_server_spring.domain.telemetry.TmMetaRepository;
 import io.github.amuse.sims_server_spring.dto.satellite.SatelliteInfoDto;
+import io.github.amuse.sims_server_spring.dto.telecommand.TcMetaReqDto;
+import io.github.amuse.sims_server_spring.dto.telecommand.TcMetaResDto;
+import io.github.amuse.sims_server_spring.dto.telemetry.TmMetaReqDto;
+import io.github.amuse.sims_server_spring.dto.telemetry.TmMetaResDto;
 import lombok.AllArgsConstructor;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
@@ -20,7 +27,9 @@ import java.util.List;
 @AllArgsConstructor
 public class SatelliteServiceImple implements SatelliteService {
 
-    SatelliteRepository satelliteRepository;
+    private SatelliteRepository satelliteRepository;
+    private TcMetaRepository tcMetaRepository;
+    private TmMetaRepository tmMetaRepository;
 
     @Override
     public List<SatelliteInfoDto> getSatelliteList(String satellieCode, int startAt, int maxResult) {
@@ -116,5 +125,57 @@ public class SatelliteServiceImple implements SatelliteService {
         }
         satelliteRepository.deleteById(satelliteCode);
         return satelliteCode;
+    }
+
+    @Override
+    public List<TmMetaResDto> getTmMeta(String satelliteCode) {
+        List<TmMetaResDto> resList = new ArrayList<>();
+        List<TmMeta> metas = tmMetaRepository.findAllBySatelliteCode();
+        metas.forEach(metaInfo->{
+            resList.add(
+                    TmMetaResDto.builder()
+                            .telemetryCode(metaInfo.getTelemetryCode())
+                            .satelliteCode(metaInfo.getSatelliteCode())
+                            .telemetryName(metaInfo.getTelemetryName())
+                            .dataTableName(metaInfo.getDataTableName())
+                            .build()
+            );
+        });
+        return resList;
+    }
+
+    @Override
+    public TmMetaResDto insertTmMeta(String satelliteCode, TmMetaReqDto reqForm) {
+        return null;
+    }
+
+    @Override
+    public TmMetaResDto updateTmMeta(String satelliteCode, TmMetaReqDto reqForm) {
+        return null;
+    }
+
+    @Override
+    public TmMetaResDto deleteTmMeta(String satelliteCode, String tmCode) {
+        return null;
+    }
+
+    @Override
+    public List<TcMetaResDto> getTcMeta(String satelliteCode) {
+        return null;
+    }
+
+    @Override
+    public TcMetaResDto insertTcMeta(String satelliteCode, TcMetaReqDto reqForm) {
+        return null;
+    }
+
+    @Override
+    public TcMetaResDto updateTcMeta(String satelliteCode, TcMetaReqDto reqForm) {
+        return null;
+    }
+
+    @Override
+    public TcMetaResDto deleteTcMeta(String satelliteCode, String tmCode) {
+        return null;
     }
 }
