@@ -22,7 +22,7 @@ public class OrbitsController {
         LocalDateTime start = LocalDateTime.parse(startTime, DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss"));
         LocalDateTime end = getEndTime(start,endTime);
 
-        return orbitService.getOrbitData(start,end);
+        return orbitService.getAllOrbitDataByTerm(start,end);
     }
 
     @GetMapping("/orbits/{satelliteCode}")
@@ -32,11 +32,11 @@ public class OrbitsController {
 
         LocalDateTime start = LocalDateTime.parse(startTime, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
         LocalDateTime end = getEndTime(start,endTime);
-        return orbitService.getOrbitDataBySatCode(satelliteCode,start,end);
+        return orbitService.getOrbitDataBySatCodeAndTerm(satelliteCode,start,end);
     }
 
     @PostMapping("/orbits/{satelliteCode}")
-    public String insertOrbitData(@PathVariable String satelliteCode, @RequestBody OrbitDataDto data){
+    public OrbitDataDto insertOrbitData(@PathVariable String satelliteCode, @RequestBody OrbitDataDto data){
         return orbitService.insertOrbitData(satelliteCode,data);
     }
 
