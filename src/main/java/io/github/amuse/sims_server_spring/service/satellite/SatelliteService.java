@@ -17,14 +17,15 @@ public interface SatelliteService {
     String deleteSatellite(String satelliteCode);
 
     // 위성의 TM 메타 정보
-    List<TmMetaResDto> getTmMeta(String satelliteCode);
+    List<TmMetaResDto> getSatlliteTmMeta(String satelliteCode);
     TmMetaResDto insertTmMeta(String satelliteCode, TmMetaReqDto reqForm);
     TmMetaResDto updateTmMeta(String satelliteCode, TmMetaReqDto reqForm);
-    TmMetaResDto deleteTmMeta(String satelliteCode, String tmCode);
+    String deleteTmMeta(String satelliteCode, Long tmCode);
+
 
     // 위성의 TC 메타 정보
-    List<TcMetaResDto> getTcMeta(String satelliteCode);
+    List<TcMetaResDto> getSatlliteTcMeta(String satelliteCode);
     TcMetaResDto insertTcMeta(String satelliteCode, TcMetaReqDto reqForm);
     TcMetaResDto updateTcMeta(String satelliteCode, TcMetaReqDto reqForm);
-    TcMetaResDto deleteTcMeta(String satelliteCode, String tmCode);
+    String deleteTcMeta(String satelliteCode, Long tmCode);
 }
