@@ -23,6 +23,9 @@ spring:
     jdbc:
       initialize-schema: always
 
+  data:
+    mongodb:
+      uri: mongodb://localhost:27017/simsdb_mongo_local?useSSL=false
 # 운영 환경
 ---
 spring:

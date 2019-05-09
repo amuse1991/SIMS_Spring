@@ -45,45 +45,15 @@ public class SatellitesController {
         return satelliteService.deleteSatellite(satelliteCode);
     }
 
-    // 위성의 TM 메타 정보
+    // 위성이 가진 telemetry 목록
     @GetMapping("satellites/{satelliteCode}/telemetry")
     public List<TmMetaResDto> getTmMeta(@PathVariable String satelliteCode){
         return satelliteService.getSatlliteTmMeta(satelliteCode);
     }
 
-    @PostMapping("satellites/{satelliteCode}/telemetry")
-    public TmMetaResDto insertTmMeta(@PathVariable String satelliteCode, @RequestBody TmMetaReqDto reqForm){
-        return satelliteService.insertTmMeta(satelliteCode,reqForm);
-    }
-
-    @PutMapping("satellites/{satelliteCode}/telemetry")
-    public TmMetaResDto updateTmMeta(@PathVariable String satelliteCode, @RequestBody TmMetaReqDto reqForm){
-        return satelliteService.updateTmMeta(satelliteCode,reqForm);
-    }
-
-    @DeleteMapping("satellites/{satelliteCode}/telemetry")
-    public String deleteTmMeta(@PathVariable String satelliteCode, @RequestParam(value = "code") Long tmCode){
-        return satelliteService.deleteTmMeta(satelliteCode,tmCode);
-    }
-
-    // 위성의 TC 메타 정보
+    // 위성이 가진 telecommand 목록
     @GetMapping("satellites/{satelliteCode}/telecommand")
     public List<TcMetaResDto> getTcMeta(@PathVariable String satelliteCode){
         return satelliteService.getSatlliteTcMeta(satelliteCode);
-    }
-
-    @PostMapping("satellites/{satelliteCode}/telecommand")
-    public TcMetaResDto insertTcMeta(@PathVariable String satelliteCode, @RequestBody TcMetaReqDto reqForm){
-        return satelliteService.insertTcMeta(satelliteCode,reqForm);
-    }
-
-    @PutMapping("satellites/{satelliteCode}/telecommand")
-    public TcMetaResDto updateTcMeta(@PathVariable String satelliteCode, @RequestBody TcMetaReqDto reqForm){
-        return satelliteService.updateTcMeta(satelliteCode,reqForm);
-    }
-
-    @DeleteMapping("satellites/{satelliteCode}/telecommand")
-    public String deleteTcMeta(@PathVariable String satelliteCode, @RequestParam(value = "code") Long tmCode){
-        return satelliteService.deleteTcMeta(satelliteCode,tmCode);
     }
 }
