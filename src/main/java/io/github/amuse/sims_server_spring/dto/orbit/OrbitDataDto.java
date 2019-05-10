@@ -1,19 +1,14 @@
-package io.github.amuse.sims_server_spring.domain.orbit;
+package io.github.amuse.sims_server_spring.dto.orbit;
 
-import lombok.*;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.Setter;
 
-import javax.persistence.*;
 import java.util.Date;
 
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 @Setter
-@Entity
-@Table(name = "orbit")
-public class Orbit {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(updatable = false)
+public class OrbitDataDto {
     private Long dataCode;
     private String satelliteCode;
     private Date utcTime;
@@ -23,7 +18,8 @@ public class Orbit {
     private Date dateOfEntry;
 
     @Builder
-    public Orbit(String satelliteCode, Date utcTime, Double lat, Double lng, Double alt, Date dateOfEntry) {
+    public OrbitDataDto(Long dataCode, String satelliteCode, Date utcTime, Double lat, Double lng, Double alt, Date dateOfEntry) {
+        this.dataCode = dataCode;
         this.satelliteCode = satelliteCode;
         this.utcTime = utcTime;
         this.lat = lat;
@@ -34,7 +30,7 @@ public class Orbit {
 
     @Override
     public String toString() {
-        return "Orbit{" +
+        return "OrbitDataDto{" +
                 "dataCode=" + dataCode +
                 ", satelliteCode='" + satelliteCode + '\'' +
                 ", utcTime=" + utcTime +

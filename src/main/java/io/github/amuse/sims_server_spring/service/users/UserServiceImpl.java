@@ -88,6 +88,7 @@ public class UserServiceImpl implements UserService{
         user.setPosition(reqData.getPosition());
         user.setEmail(reqData.getEmail());
         user.setPhone(reqData.getPhone());
+        usersRepository.save(user);
 
         return UserInfoResDto.builder()
                 .userId(user.getUserId())
@@ -102,7 +103,7 @@ public class UserServiceImpl implements UserService{
     @Override
     public String deleteUser(Long userKey) {
         if(!usersRepository.existsById(userKey)){
-            throw new EntityNotFoundException();
+            throw new EntityNotFoundException("can't find user " + userKey);
         }
         usersRepository.deleteById(userKey);
         return userKey.toString();

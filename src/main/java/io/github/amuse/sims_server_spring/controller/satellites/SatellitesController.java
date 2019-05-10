@@ -1,6 +1,10 @@
-package io.github.amuse.sims_server_spring.controller.satellite;
+package io.github.amuse.sims_server_spring.controller.satellites;
 
 import io.github.amuse.sims_server_spring.dto.satellite.SatelliteInfoDto;
+import io.github.amuse.sims_server_spring.dto.telecommand.TcMetaReqDto;
+import io.github.amuse.sims_server_spring.dto.telecommand.TcMetaResDto;
+import io.github.amuse.sims_server_spring.dto.telemetry.TmMetaReqDto;
+import io.github.amuse.sims_server_spring.dto.telemetry.TmMetaResDto;
 import io.github.amuse.sims_server_spring.service.satellite.SatelliteService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -8,7 +12,7 @@ import java.util.List;
 
 @RestController
 @AllArgsConstructor
-public class SatelliteController {
+public class SatellitesController {
 
     SatelliteService satelliteService;
 
@@ -41,7 +45,15 @@ public class SatelliteController {
         return satelliteService.deleteSatellite(satelliteCode);
     }
 
-    // 위성의 TM 정보
+    // 위성이 가진 telemetry 목록
+    @GetMapping("satellites/{satelliteCode}/telemetry")
+    public List<TmMetaResDto> getTmMeta(@PathVariable String satelliteCode){
+        return satelliteService.getSatlliteTmMeta(satelliteCode);
+    }
 
-    // 위성의 TC 정보
+    // 위성이 가진 telecommand 목록
+    @GetMapping("satellites/{satelliteCode}/telecommand")
+    public List<TcMetaResDto> getTcMeta(@PathVariable String satelliteCode){
+        return satelliteService.getSatlliteTcMeta(satelliteCode);
+    }
 }

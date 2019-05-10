@@ -1,22 +1,20 @@
 package io.github.amuse.sims_server_spring.domain.telecommand;
 
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
+@Setter
 @Entity
 @Table(name="tc_meta")
 public class TcMeta {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(updatable = false)
-    private Long telecommandCode;
-    private String satelliteCode;
+    @Setter(AccessLevel.NONE) private Long telecommandCode;
+    @Setter(AccessLevel.NONE) private String satelliteCode;
     private String telecommandName;
     private String dataTableName;
 

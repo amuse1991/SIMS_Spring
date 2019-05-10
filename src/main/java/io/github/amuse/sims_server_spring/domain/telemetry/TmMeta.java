@@ -1,15 +1,13 @@
 package io.github.amuse.sims_server_spring.domain.telemetry;
 
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.Date;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
+@Setter
 @Entity
 @Table(name="tm_meta")
 public class TmMeta {
@@ -17,8 +15,8 @@ public class TmMeta {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(updatable = false)
-    private Long telemetryCode;
-    private String satelliteCode;
+    @Setter(AccessLevel.NONE) private Long telemetryCode;
+    @Setter(AccessLevel.NONE) private String satelliteCode;
     private String telemetryName;
     private String dataTableName;
 
