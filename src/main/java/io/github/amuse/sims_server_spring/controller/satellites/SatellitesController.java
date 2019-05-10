@@ -1,6 +1,7 @@
 package io.github.amuse.sims_server_spring.controller.satellites;
 
 import io.github.amuse.sims_server_spring.dto.satellite.SatelliteInfoDto;
+import io.github.amuse.sims_server_spring.dto.satellite.SatelliteMetaInfoDto;
 import io.github.amuse.sims_server_spring.dto.telecommand.TcMetaReqDto;
 import io.github.amuse.sims_server_spring.dto.telecommand.TcMetaResDto;
 import io.github.amuse.sims_server_spring.dto.telemetry.TmMetaReqDto;
@@ -45,15 +46,8 @@ public class SatellitesController {
         return satelliteService.deleteSatellite(satelliteCode);
     }
 
-    // 위성이 가진 telemetry 목록
-    @GetMapping("satellites/{satelliteCode}/telemetry")
-    public List<TmMetaResDto> getTmMeta(@PathVariable String satelliteCode){
-        return satelliteService.getSatlliteTmMeta(satelliteCode);
-    }
-
-    // 위성이 가진 telecommand 목록
-    @GetMapping("satellites/{satelliteCode}/telecommand")
-    public List<TcMetaResDto> getTcMeta(@PathVariable String satelliteCode){
-        return satelliteService.getSatlliteTcMeta(satelliteCode);
+    @GetMapping("satellites/{satelliteCode}/meta")
+    public SatelliteMetaInfoDto getTmMeta(@PathVariable String satelliteCode){
+        return satelliteService.getSatelliteMeta(satelliteCode);
     }
 }
