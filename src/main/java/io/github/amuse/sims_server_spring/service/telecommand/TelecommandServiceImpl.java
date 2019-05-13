@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityNotFoundException;
+import java.time.LocalDateTime;
 
 @Service
 @Transactional
@@ -18,7 +19,12 @@ public class TelecommandServiceImpl implements TelecommandService {
     private TcMetaRepository tcMetaRepository;
 
     @Override
-    public TcMetaResDto getMeta(String tmCode) {
+    public TcMetaResDto getMeta(Long tmCode) {
+        return null;
+    }
+
+    @Override
+    public String getData(Long tcCode, LocalDateTime startDateTime, LocalDateTime endDateTime) {
         return null;
     }
 
@@ -27,36 +33,29 @@ public class TelecommandServiceImpl implements TelecommandService {
         TcMeta newMeta = TcMeta.builder()
                 .satelliteCode(reqForm.getSatelliteCode())
                 .telecommandName(reqForm.getTelecommandName())
-                .dataTableName(reqForm.getDataTableName())
                 .build();
         tcMetaRepository.save(newMeta);
         return TcMetaResDto.builder()
                 .satelliteCode(newMeta.getSatelliteCode())
                 .telecommandName(newMeta.getTelecommandName())
-                .dataTableName(newMeta.getDataTableName())
                 .build();
     }
 
     @Override
-    public TcMetaResDto updateMeta(String satelliteCode, TcMetaReqDto reqForm) {
-        TcMeta meta = tcMetaRepository.findBySatelliteCode(satelliteCode)
-                .orElseThrow(()->new EntityNotFoundException("can't find satellite " + satelliteCode));
-        meta.setTelecommandName(reqForm.getTelecommandName());
-        meta.setDataTableName(reqForm.getDataTableName());
+    public TcMetaResDto changeMetaName(Long tmCode, String name) {
+        TcMeta meta = tcMetaRepository.findById(tmCode)
+                .orElseThrow(()->new EntityNotFoundException("can't find telecommand meta " + tmCode));
+        meta.setTelecommandName(name);
         tcMetaRepository.save(meta);
         return TcMetaResDto.builder()
                 .satelliteCode(meta.getSatelliteCode())
                 .telecommandName(meta.getTelecommandName())
-                .dataTableName(meta.getDataTableName())
                 .build();
     }
 
     @Override
-    public String deleteMeta(String satelliteCode, Long tmCode) {
-        if(!tcMetaRepository.existsBySatelliteCode(satelliteCode)){
-            throw new EntityNotFoundException("can't find satellite " + satelliteCode);
-        }
-        tcMetaRepository.deleteBySatelliteCodeAndTelecommandCode(satelliteCode, tmCode);
-        return satelliteCode;
+    public String deleteMeta(Long tmCode) {
+        tcMetaRepository.deleteById(tmCode);
+        return tmCode.toString();
     }
 }

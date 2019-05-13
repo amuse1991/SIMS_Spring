@@ -18,13 +18,11 @@ public class TmMeta {
     @Setter(AccessLevel.NONE) private Long telemetryCode;
     @Setter(AccessLevel.NONE) private String satelliteCode;
     private String telemetryName;
-    private String dataTableName;
 
     @Builder
-    public TmMeta(String satelliteCode, String telemetryName, String dataTableName) {
+    public TmMeta(String satelliteCode, String telemetryName) {
         this.satelliteCode = satelliteCode;
         this.telemetryName = telemetryName;
-        this.dataTableName = dataTableName;
     }
 
     @Override
@@ -33,7 +31,6 @@ public class TmMeta {
                 "telemetryCode=" + telemetryCode +
                 ", satelliteCode=" + satelliteCode +
                 ", telemetryName='" + telemetryName + '\'' +
-                ", dataTableName='" + dataTableName + '\'' +
                 '}';
     }
 }
