@@ -10,14 +10,12 @@ public class TmMetaResDto {
     private Long telemetryCode;
     private String satelliteCode;
     private String telemetryName;
-    private String dataTableName;
 
     @Builder
-    public TmMetaResDto(Long telemetryCode, String satelliteCode, String telemetryName, String dataTableName) {
+    public TmMetaResDto(Long telemetryCode, String satelliteCode, String telemetryName) {
         this.telemetryCode = telemetryCode;
         this.satelliteCode = satelliteCode;
         this.telemetryName = telemetryName;
-        this.dataTableName = dataTableName;
     }
 
     @Override
@@ -26,7 +24,6 @@ public class TmMetaResDto {
                 "telemetryCode=" + telemetryCode +
                 ", satelliteCode='" + satelliteCode + '\'' +
                 ", telemetryName='" + telemetryName + '\'' +
-                ", dataTableName='" + dataTableName + '\'' +
                 '}';
     }
 }

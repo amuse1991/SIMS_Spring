@@ -9,13 +9,11 @@ import lombok.Setter;
 public class TmMetaReqDto {
     private String satelliteCode;
     private String telemetryName;
-    private String dataTableName;
 
     @Builder
-    public TmMetaReqDto(String satelliteCode, String telemetryName, String dataTableName) {
+    public TmMetaReqDto(String satelliteCode, String telemetryName) {
         this.satelliteCode = satelliteCode;
         this.telemetryName = telemetryName;
-        this.dataTableName = dataTableName;
     }
 
     @Override
@@ -23,7 +21,6 @@ public class TmMetaReqDto {
         return "TmMetaReqDto{" +
                 "satelliteCode='" + satelliteCode + '\'' +
                 ", telemetryName='" + telemetryName + '\'' +
-                ", dataTableName='" + dataTableName + '\'' +
                 '}';
     }
 }

@@ -1,32 +1,29 @@
-package io.github.amuse.sims_server_spring.db;
+package io.github.amuse.sims_server_spring.mongo;
 
-import com.mongodb.DBCursor;
-import com.mongodb.Mongo;
 import com.mongodb.MongoClient;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
 import com.mongodb.client.MongoDatabase;
 import org.bson.Document;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.autoconfigure.data.mongo.DataMongoTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest
+@DataMongoTest
 public class MongodbTest {
     @Autowired
     private MongoClient mongoClient;
 
     @Test
-    public void DB접속_테스트(){
+    public void DB접속_성공시_데이터조회가_가능하다(){
         MongoDatabase db = mongoClient.getDatabase("simsdb_mongo_local");
         MongoCollection collection = db.getCollection("test");
         FindIterable findIterable = collection.find();

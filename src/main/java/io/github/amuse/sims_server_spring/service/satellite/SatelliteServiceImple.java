@@ -7,8 +7,11 @@ import io.github.amuse.sims_server_spring.domain.telecommand.TcMetaRepository;
 import io.github.amuse.sims_server_spring.domain.telemetry.TmMeta;
 import io.github.amuse.sims_server_spring.domain.telemetry.TmMetaRepository;
 import io.github.amuse.sims_server_spring.dto.satellite.SatelliteInfoDto;
+import io.github.amuse.sims_server_spring.dto.satellite.SatelliteMetaInfoDto;
+import io.github.amuse.sims_server_spring.dto.telecommand.SimpleTcMetaDto;
 import io.github.amuse.sims_server_spring.dto.telecommand.TcMetaReqDto;
 import io.github.amuse.sims_server_spring.dto.telecommand.TcMetaResDto;
+import io.github.amuse.sims_server_spring.dto.telemetry.SimpleTmMetaDto;
 import io.github.amuse.sims_server_spring.dto.telemetry.TmMetaReqDto;
 import io.github.amuse.sims_server_spring.dto.telemetry.TmMetaResDto;
 import lombok.AllArgsConstructor;
@@ -129,114 +132,40 @@ public class SatelliteServiceImple implements SatelliteService {
     }
 
     @Override
-    public List<TmMetaResDto> getSatlliteTmMeta(String satelliteCode) {
-        List<TmMetaResDto> resList = new ArrayList<>();
-        List<TmMeta> metas = tmMetaRepository.findAllBySatelliteCode(satelliteCode)
-                .orElseThrow(()->new EntityNotFoundException("can't find satellite " + satelliteCode));
-        metas.forEach(metaInfo->{
-            resList.add(
-                    TmMetaResDto.builder()
-                            .telemetryCode(metaInfo.getTelemetryCode())
-                            .satelliteCode(metaInfo.getSatelliteCode())
-                            .telemetryName(metaInfo.getTelemetryName())
-                            .dataTableName(metaInfo.getDataTableName())
+    public SatelliteMetaInfoDto getSatelliteMeta(String satelliteCode) {
+        if(!satelliteRepository.existsById(satelliteCode)){
+            throw new EntityNotFoundException("can't find satellite " + satelliteCode);
+        }
+        // telemetry
+        List<SimpleTmMetaDto> tmInfoList = new ArrayList<>();
+        List<TmMeta> tmMetaList = tmMetaRepository.findAllBySatelliteCode(satelliteCode)
+                .orElseThrow(()->new EntityNotFoundException("can't find telemetry meta with satellite code "+satelliteCode));
+        // dto에 삽입
+        tmMetaList.forEach(meta->{
+            tmInfoList.add(
+                    SimpleTmMetaDto.builder()
+                            .tmName(meta.getTelemetryName())
+                            .tmCode(meta.getTelemetryCode())
                             .build()
             );
         });
-        return resList;
-    }
 
-    @Override
-    public TmMetaResDto insertTmMeta(String satelliteCode, TmMetaReqDto reqForm) {
-        TmMeta newMeta = TmMeta.builder()
-                .satelliteCode(reqForm.getSatelliteCode())
-                .telemetryName(reqForm.getTelemetryName())
-                .dataTableName(reqForm.getDataTableName())
-                .build();
-        tmMetaRepository.save(newMeta);
-        return TmMetaResDto.builder()
-                .satelliteCode(newMeta.getSatelliteCode())
-                .telemetryName(newMeta.getTelemetryName())
-                .dataTableName(newMeta.getDataTableName())
-                .build();
-    }
-
-    @Override
-    public TmMetaResDto updateTmMeta(String satelliteCode, TmMetaReqDto reqForm) {
-        TmMeta meta = tmMetaRepository.findBySatelliteCode(satelliteCode)
-                .orElseThrow(()->new EntityNotFoundException("can't find satellite " + satelliteCode));
-        meta.setTelemetryName(reqForm.getTelemetryName());
-        meta.setDataTableName(reqForm.getDataTableName());
-        tmMetaRepository.save(meta);
-        return TmMetaResDto.builder()
-                .satelliteCode(meta.getSatelliteCode())
-                .telemetryName(meta.getTelemetryName())
-                .dataTableName(meta.getDataTableName())
-                .build();
-    }
-
-    @Override
-    public String deleteTmMeta(String satelliteCode, Long tmCode) {
-        if(!tmMetaRepository.existsBySatelliteCode(satelliteCode)){
-            throw new EntityNotFoundException("can't find satellite " + satelliteCode);
-        }
-        tmMetaRepository.deleteBySatelliteCodeAndTelemetryCode(satelliteCode, tmCode);
-        return satelliteCode;
-    }
-
-    @Override
-    public List<TcMetaResDto> getSatlliteTcMeta(String satelliteCode) {
-        List<TcMetaResDto> resList = new ArrayList<>();
-        List<TcMeta> metas = tcMetaRepository.findAllBySatelliteCode(satelliteCode)
-                .orElseThrow(()->new EntityNotFoundException("can't find satellite " + satelliteCode));
-        metas.forEach(metaInfo->{
-            resList.add(
-                    TcMetaResDto.builder()
-                            .telecommandCode(metaInfo.getTelecommandCode())
-                            .satelliteCode(metaInfo.getSatelliteCode())
-                            .telecommandName(metaInfo.getTelecommandName())
-                            .dataTableName(metaInfo.getDataTableName())
+        // telecommand
+        List<SimpleTcMetaDto> tcInfoList = new ArrayList<>();
+        List<TcMeta> tcMetaList = tcMetaRepository.findAllBySatelliteCode(satelliteCode)
+                .orElseThrow(()->new EntityNotFoundException("can't find telecommand meta with satellite code "+satelliteCode));
+        tcMetaList.forEach(meta->{
+            tcInfoList.add(
+                    SimpleTcMetaDto.builder()
+                            .tcName(meta.getTelecommandName())
+                            .tcCode(meta.getTelecommandCode())
                             .build()
             );
         });
-        return resList;
-    }
-
-    @Override
-    public TcMetaResDto insertTcMeta(String satelliteCode, TcMetaReqDto reqForm) {
-        TcMeta newMeta = TcMeta.builder()
-                .satelliteCode(reqForm.getSatelliteCode())
-                .telecommandName(reqForm.getTelecommandName())
-                .dataTableName(reqForm.getDataTableName())
+        return SatelliteMetaInfoDto.builder()
+                .satelliteCode(satelliteCode)
+                .tmInfo(tmInfoList)
+                .tcInfo(tcInfoList)
                 .build();
-        tcMetaRepository.save(newMeta);
-        return TcMetaResDto.builder()
-                .satelliteCode(newMeta.getSatelliteCode())
-                .telecommandName(newMeta.getTelecommandName())
-                .dataTableName(newMeta.getDataTableName())
-                .build();
-    }
-
-    @Override
-    public TcMetaResDto updateTcMeta(String satelliteCode, TcMetaReqDto reqForm) {
-        TcMeta meta = tcMetaRepository.findBySatelliteCode(satelliteCode)
-                .orElseThrow(()->new EntityNotFoundException("can't find satellite " + satelliteCode));
-        meta.setTelecommandName(reqForm.getTelecommandName());
-        meta.setDataTableName(reqForm.getDataTableName());
-        tcMetaRepository.save(meta);
-        return TcMetaResDto.builder()
-                .satelliteCode(meta.getSatelliteCode())
-                .telecommandName(meta.getTelecommandName())
-                .dataTableName(meta.getDataTableName())
-                .build();
-    }
-
-    @Override
-    public String deleteTcMeta(String satelliteCode, Long tmCode) {
-        if(!tcMetaRepository.existsBySatelliteCode(satelliteCode)){
-            throw new EntityNotFoundException("can't find satellite " + satelliteCode);
-        }
-        tcMetaRepository.deleteBySatelliteCodeAndTelecommandCode(satelliteCode, tmCode);
-        return satelliteCode;
     }
 }

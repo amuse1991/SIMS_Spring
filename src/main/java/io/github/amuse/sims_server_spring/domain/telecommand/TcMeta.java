@@ -16,13 +16,11 @@ public class TcMeta {
     @Setter(AccessLevel.NONE) private Long telecommandCode;
     @Setter(AccessLevel.NONE) private String satelliteCode;
     private String telecommandName;
-    private String dataTableName;
 
     @Builder
-    public TcMeta(String satelliteCode, String telecommandName, String dataTableName) {
+    public TcMeta(String satelliteCode, String telecommandName) {
         this.satelliteCode = satelliteCode;
         this.telecommandName = telecommandName;
-        this.dataTableName = dataTableName;
     }
 
     @Override
@@ -31,7 +29,6 @@ public class TcMeta {
                 "telecommandCode=" + telecommandCode +
                 ", satelliteCode=" + satelliteCode +
                 ", telecommandName='" + telecommandName + '\'' +
-                ", dataTableName='" + dataTableName + '\'' +
                 '}';
     }
 }
