@@ -19,23 +19,23 @@ public class TelemetriesController {
     private TelemetryServiceImpl telemetryService;
 
     @GetMapping("telemetries/metas")
-    public TmMetaResDto getMeta(@PathVariable Long tmCode){
+    public TmMetaResDto getMeta(@RequestParam(value = "tm_code") Long tmCode){
         return telemetryService.getMeta(tmCode);
     }
 
-    @PostMapping("telemetries/matas")
+    @PostMapping("telemetries/metas")
     public TmMetaResDto insertMeta(@RequestBody TmMetaReqDto reqForm){
         return telemetryService.insertMeta(reqForm);
     }
 
-    @PutMapping("telemetries/metas/{tm_code}")
-    public TmMetaResDto insertMeta(@PathVariable(value = "tm_code") Long tmCode,
+    @PutMapping("telemetries/metas/{tmCode}")
+    public TmMetaResDto changeMetaName(@PathVariable Long tmCode,
                                    @RequestParam(value = "name") String name){
         return telemetryService.changeMetaName(tmCode,name);
     }
 
-    @DeleteMapping("telemetries/metas/{tm_code}")
-    public String deleteMeta(@PathVariable(value = "tm_code") Long tmCode){
+    @DeleteMapping("telemetries/metas/{tmCode}")
+    public String deleteMeta(@PathVariable Long tmCode){
         return telemetryService.deleteMeta(tmCode);
     }
 
@@ -52,6 +52,6 @@ public class TelemetriesController {
         headers.setContentType(MediaType.APPLICATION_JSON);
         return ResponseEntity.ok()
                 .headers(headers)
-                .body(telemetryService.getData(tmCode,sDate,eDate));
+                .body(telemetryService.getDataByDateTime(tmCode,sDate,eDate));
     }
 }

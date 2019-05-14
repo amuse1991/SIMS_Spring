@@ -21,14 +21,14 @@ public class TelemetryServiceTest {
     private TelemetryServiceImpl telemetryService;
 
     @Test
-    public void getDate_isTm데이터를_조회한다_성공시returns_null이아닌값(){
+    public void getDataByDateTime은_시간으로TM데이터를조회한다_성공시null이아닌값반환(){
         // given
         Long tmCode = 1L;
         LocalDateTime startDateTime = LocalDateTime.of(2016,6,3,0,0);
         LocalDateTime endDateTime = LocalDateTime.of(2016,6,3,1,0);
 
         // when
-        String jsonData = telemetryService.getData(tmCode,startDateTime,endDateTime);
+        String jsonData = telemetryService.getDataByDateTime(tmCode,startDateTime,endDateTime);
 
         // then
         assertNotNull(jsonData);

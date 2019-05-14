@@ -1,21 +1,15 @@
-package io.github.amuse.sims_server_spring.db;
+package io.github.amuse.sims_server_spring.mongo.dao.telemetry;
 
-import com.mongodb.DBCursor;
-import com.mongodb.Mongo;
+
 import com.mongodb.MongoClient;
-import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
 import com.mongodb.client.MongoDatabase;
 import org.bson.Document;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.data.mongo.DataMongoTest;
-import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.time.LocalDateTime;
@@ -28,27 +22,14 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
 @RunWith(SpringRunner.class)
-//@SpringBootTest
 @DataMongoTest
-public class MongodbTest {
+public class TmDataRepositoryTest {
+
     @Autowired
     private MongoClient mongoClient;
 
     @Test
-    @Ignore
-    public void DB접속_테스트(){
-        MongoDatabase db = mongoClient.getDatabase("simsdb_mongo_local");
-        MongoCollection collection = db.getCollection("test");
-        FindIterable findIterable = collection.find();
-
-        try(MongoCursor cursor = findIterable.iterator()) {
-            Document res = (Document)cursor.next();
-            assertThat(res.get("code"),is(111.0));
-        }
-    }
-
-    @Test
-    public void findDataByNameAndTerm_is이름과_시간으로_데이터셋조회_returns쿼리결과데이터셋(){
+    public void findDataByNameAndTerm은_이름과시간으로_데이터셋조회_쿼리결과반환(){
         // given
         String metaName = "fcs";
         // fcs 테스트 데이터 2016-06-03 00시 부터 03시까지 있음
@@ -56,9 +37,9 @@ public class MongodbTest {
                 .format(DateTimeFormatter.ofPattern("yyyy-MM-dd H:MM"));
         String end  = LocalDateTime.of(2016,6,3,1,0,0) // 01시까지 테스트(90개 조회)
                 .format(DateTimeFormatter.ofPattern("yyyy-MM-dd H:MM"));
-        List<Document> resList = new ArrayList<>();
-        // when
 
+        // when
+        List<Document> resList = new ArrayList<>();
         MongoDatabase db = mongoClient.getDatabase("simsdb_mongo_local");
         MongoCollection collection = db.getCollection(metaName);
 

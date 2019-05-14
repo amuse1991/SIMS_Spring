@@ -39,7 +39,7 @@ public class TelemetryServiceImpl implements TelemetryService{
     }
 
     @Override
-    public String getData(Long tmCode, LocalDateTime startDateTime, LocalDateTime endDateTime) {
+    public String getDataByDateTime(Long tmCode, LocalDateTime startDateTime, LocalDateTime endDateTime) {
         // tm 이름 확인
         TmMeta meta = tmMetaRepository.findById(tmCode)
                 .orElseThrow(()->new EntityNotFoundException("can't find telemetry meta : " + tmCode));

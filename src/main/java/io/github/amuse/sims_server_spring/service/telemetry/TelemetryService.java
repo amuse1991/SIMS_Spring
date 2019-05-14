@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 
 public interface TelemetryService {
     TmMetaResDto getMeta(Long tmCode);
-    String getData(Long tmCode, LocalDateTime startDateTime, LocalDateTime endDateTime);
+    String getDataByDateTime(Long tmCode, LocalDateTime startDateTime, LocalDateTime endDateTime);
     TmMetaResDto insertMeta(TmMetaReqDto reqForm);
     TmMetaResDto changeMetaName(Long tmCode, String name);
     String deleteMeta(Long tmCode);
