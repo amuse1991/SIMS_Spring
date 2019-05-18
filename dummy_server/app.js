@@ -1,31 +1,51 @@
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
+const express = require('express');
+const logger = require('morgan');
+const dao = require("./dao/mongoDao");
+
+const port = 3500;
 
 var app = express();
-
 app.use(logger('dev'));
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+var http = require('http').Server(app);
+var io = require('socket.io')(http);
 
-// catch 404 and forward to error handler
-app.use(function(req, res, next) {
-  next(createError(404));
+app.get("/",()=>{
+  res.send("<p></p>");
+})
+
+let receivedData = []; // 위성에서 수신한 데이터를 저장할 배열
+
+/*
+  데이터 수신
+  (개발 단계에서는 db에 미리 저장된 데이터를 읽어옴)
+*/
+dao.getData("fcs") // fcs 데이터
+  .then(res=>{
+    receivedData.push({
+      type:"tm",
+      name:"fcs",
+      data:res
+    })
+    dao.getData("wod") // wod 데이터
+      .then(res=>{
+        receivedData.push({
+          type:"tm",
+          name:"wod",
+          data:res
+        })
+        dao.getData("tc") // tc데이터
+          .then(res=>{
+            receivedData.push({
+              type:"tc",
+              name:"fcs",
+              data:res
+            })
+            console.log(receivedData)
+          })
+      })
+  })
+http.listen(port, ()=>{
+  console.log("central control server running on "+port)
 });
+ 
 
-// error handler
-app.use(function(err, req, res, next) {
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
-
-  // render the error page
-  res.status(err.status || 500);
-  res.render('error');
-});
-
-module.exports = app;
