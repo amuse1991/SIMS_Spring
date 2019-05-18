@@ -1,6 +1,7 @@
 const express = require('express');
 const logger = require('morgan');
-const dao = require("./dao/mongoDao");
+const receiver = require("./service/receiverService/receiverService")
+const sender = require("./service/senderService/senderService")
 
 const port = 3500;
 
@@ -13,39 +14,25 @@ app.get("/",()=>{
   res.send("<p></p>");
 })
 
-let receivedData = []; // 위성에서 수신한 데이터를 저장할 배열
+let dataset = []; // 위성에서 수신한 데이터를 저장할 배열
 
 /*
-  데이터 수신
-  (개발 단계에서는 db에 미리 저장된 데이터를 읽어옴)
+  SIMS server 에서 connection 요청이 오면 웹 소켓 연결을 시작한다.
 */
-dao.getData("fcs") // fcs 데이터
-  .then(res=>{
-    receivedData.push({
-      type:"tm",
-      name:"fcs",
-      data:res
-    })
-    dao.getData("wod") // wod 데이터
-      .then(res=>{
-        receivedData.push({
-          type:"tm",
-          name:"wod",
-          data:res
-        })
-        dao.getData("tc") // tc데이터
-          .then(res=>{
-            receivedData.push({
-              type:"tc",
-              name:"fcs",
-              data:res
-            })
-            console.log(receivedData)
-          })
-      })
-  })
-http.listen(port, ()=>{
-  console.log("central control server running on "+port)
+io.on('sims_server_conn-req',(socket)=>{
+  sender.run();
 });
+
+receiver.receiveData() // 데이터셋 수신
+  .then(res=>{
+    dataset = res;
+    console.log("successfully received dataset");
+    // 데이터셋 수신 후 서버 대기 시작
+    http.listen(port, ()=>{
+      console.log("central control server running on port"+port)
+    });
+})
+
+
  
 
