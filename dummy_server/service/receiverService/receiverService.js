@@ -26,7 +26,7 @@ module.exports.receiveData = ()=>{
                 .then(res=>{
                     receivedData.push({
                     type:"tc",
-                    name:"fcs",
+                    name:"tc",
                     data:res
                     })
                     
