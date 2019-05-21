@@ -1,0 +1,25 @@
+{
+  "name": "dummy-server",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "test": "set NODE_ENV=test && mocha broadcast.spec.js -w",
+    "start": "node app.js"
+  },
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "cookie-parser": "~1.4.4",
+    "debug": "~2.6.9",
+    "express": "~4.16.1",
+    "http-errors": "~1.6.3",
+    "mongodb": "^3.2.4",
+    "mongoose": "^5.5.9",
+    "morgan": "~1.9.1",
+    "should": "^13.2.3",
+    "socket.io": "^2.2.0",
+    "supertest": "^3.4.2"
+  },
+  "devDependencies": {
+    "mocha": "5.2.0"
+  }
+}
