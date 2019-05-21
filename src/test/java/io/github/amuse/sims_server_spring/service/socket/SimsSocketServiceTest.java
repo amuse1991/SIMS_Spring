@@ -8,12 +8,12 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class SimsSocketClientTest {
+public class SimsSocketServiceTest {
     @Autowired
-    private SimsSocketClient simsSocketClient;
+    private SimsSocketService simsSocketService;
 
     @Test
-    public void run은_성공시_데이터배열로응답한다(){
-        simsSocketClient.init("http://localhost:3500");
+    public void init은_성공시_데이터배열로응답한다(){
+        simsSocketService.init("http://localhost:3500");
     }
 }

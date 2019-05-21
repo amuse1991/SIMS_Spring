@@ -38,7 +38,7 @@ io.on('connection',function(socket){ // ()=> 쓰면 안됨
   })
 
   // 위성에서 데이터 수신중인 경우 실행
-  socket.on("init_receive",()=>{
+  socket.on("sync_req",()=>{
     let res = [];
     for(let data of dataset){
         res.push({
@@ -46,7 +46,7 @@ io.on('connection',function(socket){ // ()=> 쓰면 안됨
           name:data.name
         })
     }
-    io.emit("init_ack",res) // init 을 위한 데이터 타입 배열 전송
+    io.emit("sync_ack",res) // init 을 위한 데이터 타입 배열 전송
   })
 
   socket.on("ready",()=>{ // client 측의 데이터 수신 준비 완료 이벤트

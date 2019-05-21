@@ -9,7 +9,9 @@ import org.springframework.stereotype.Service;
 import java.net.URISyntaxException;
 
 @Service
-public class SimsSocketClient  {
+public class SimsSocketService {
+
+    public static String receivedData;
 
     public void init(String uri){
         try{
@@ -30,9 +32,9 @@ public class SimsSocketClient  {
                 @Override
                 public void call(Object... args) {
                     System.out.println("ok");
-                    socket.emit("init_receive"); // 수신할 데이터 타입 요청
+                    socket.emit("sync_req"); // 수신할 데이터 타입 요청
                 }
-            }).on("init_ack", new Emitter.Listener() { // 데이터 타입 수신
+            }).on("sync_ack", new Emitter.Listener() { // 데이터 타입 수신
                 @Override
                 public void call(Object... args) {
                     for(Object arg : args){
@@ -44,6 +46,7 @@ public class SimsSocketClient  {
                 @Override
                 public void call(Object... args) {
                     System.out.println(args[0].toString());
+                    receivedData = args[0].toString();
                 }
             });
             socket.on("check_nak", new Emitter.Listener() { // 관제 서버가 위성 데이터를 수신중이지 않은 경우
