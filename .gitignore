@@ -29,5 +29,14 @@ HELP.md
 ### VS Code ###
 .vscode/
 
-### dummy server ###
+### node_modules ###
 /dummy_server/node_modules
+/sims_charts/node_modules
+
+### auth server ###
+/auth_server/node_modules
+/auth_server/config.js
+
+### gateway ###
+/gateway/node_modules
+/gateway/config.js

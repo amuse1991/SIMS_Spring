@@ -2,6 +2,8 @@ spring:
   profiles:
     active: local #기본 환경 선택(어플리케이션 실행시 파라미터로 넘어온 값이 없으면 이 값으로 실행)
 
+server:
+  port: 3100
 # local
 ---
 spring:
