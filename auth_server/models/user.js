@@ -1,35 +1,33 @@
-const Sequelize = require("sequelize") 
-const db = require("../db")
-const Model = Sequelize.Model;
-
-class User extends Model{}
-User.init({
-    userCode:{
-        type: Sequelize.Long,
-        autoIncrement: true,
-        primaryKey: true 
-    },
-    userId:{
-        type: Sequelize.String,
-        allowNull: false
-    },
-    password:{
-        type:Sequelize.String,
-        allowNull: false
-    },
-    dept:{
-        type: Sequelize.String
-    },
-    position:{
-        type:Sequelize.String
-    },
-    email:{
-        type:Sequelize.String
-    },
-    phone:{
-        type:Sequelize.String
-    }
-},{
-    sequelize:db,
-    modelName:"user"
-})
+module.exports = (sequelize, DataTypes) =>{
+    var User = sequelize.define("User",{
+        userCode:{
+            type: DataTypes.BIGINT,
+            autoIncrement: true,
+            primaryKey: true 
+        },
+        userId:{
+            type: DataTypes.STRING,
+            allowNull: false
+        },
+        password:{
+            type:DataTypes.STRING,
+            allowNull: false
+        },
+        dept:{
+            type: DataTypes.STRING
+        },
+        position:{
+            type:DataTypes.STRING
+        },
+        email:{
+            type:DataTypes.STRING
+        },
+        phone:{
+            type:DataTypes.STRING
+        }
+    },{
+        tableName:"user",
+        timestamps:false
+    })
+    return User
+}

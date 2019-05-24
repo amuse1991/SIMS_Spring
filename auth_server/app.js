@@ -44,7 +44,7 @@ app.get("/",(req,res)=>{
 app.use("/api",require("./routers/api"))
 
 // 서버 listen
-db
+db.sequelize
     .authenticate()
     .then(()=>{
         console.log("database connection has been established successfully.");
