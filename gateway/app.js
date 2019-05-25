@@ -9,7 +9,8 @@ const morgan = require("morgan"); //서버 로그를 출력하는 미들웨어
     load the config
 ============================*/
 const config = require("./config");
-const port = process.env.PORT || 3000;
+const outerPort = process.env.PORT || config.outerPort;
+const innerPort = config.innerPort;
 
 /* =========================
     express configuration
@@ -25,15 +26,14 @@ if(process.env.NODE_ENV !== 'test'){
     app.use(morgan('dev'));
 }
 
-// JWT 비밀키 변수 설정
-app.set("jwt-secret",config.secret)
-
 // 테스트용 인덱스 페이지
 app.get("/",(req,res)=>{
     res.send("gateway")
 })
 
-// 서버 listen
-app.listen(port, ()=>{
-    console.log(`gateway is openning on port ${port}`)
+app.use("/api",require("./routes"))
+
+// 외부port open
+app.listen(outerPort, ()=>{
+    console.log(`gateway is running on port ${outerPort}`)
 })
