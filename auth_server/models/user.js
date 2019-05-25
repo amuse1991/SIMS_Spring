@@ -1,11 +1,11 @@
 module.exports = (sequelize, DataTypes) =>{
-    var User = sequelize.define("User",{
-        userCode:{
+    var User = sequelize.define("user",{
+        user_code:{
             type: DataTypes.BIGINT,
             autoIncrement: true,
             primaryKey: true 
         },
-        userId:{
+        user_id:{
             type: DataTypes.STRING,
             allowNull: false
         },
