@@ -23,9 +23,10 @@ public class Users {
     private String position;
     private String email;
     private String phone;
+    private Long role;
 
     @Builder
-    public Users(String userId, String password, String userName, String dept, String position, String email, String phone) {
+    public Users(String userId, String password, String userName, String dept, String position, String email, String phone, Long role) {
         this.userId = userId;
         this.password = password;
         this.userName = userName;
@@ -33,6 +34,7 @@ public class Users {
         this.position = position;
         this.email = email;
         this.phone = phone;
+        this.role = role;
     }
 
     @Override
@@ -46,6 +48,7 @@ public class Users {
                 ", position='" + position + '\'' +
                 ", email='" + email + '\'' +
                 ", phone='" + phone + '\'' +
+                ", role=" + role +
                 '}';
     }
 }

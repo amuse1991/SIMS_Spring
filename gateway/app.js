@@ -26,12 +26,18 @@ if(process.env.NODE_ENV !== 'test'){
     app.use(morgan('dev'));
 }
 
+// JWT 비밀키 변수 설정
+app.set("jwt-secret",config.secret)
+
 // 테스트용 인덱스 페이지
 app.get("/",(req,res)=>{
     res.send("gateway")
 })
 
-app.use("/api",require("./routes"))
+
+app.use("/api/admin",require("./routes/admin")) // admin 권한 api 라우트
+app.use("/api/auth",require("./routes/auth"))
+app.use("/api",require("./routes")) // 일반 사용자 권한 api 라우트
 
 // 외부port open
 app.listen(outerPort, ()=>{

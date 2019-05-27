@@ -18,35 +18,35 @@ public class SatellitesController {
     SatelliteService satelliteService;
 
     // 위성 정보
-    @GetMapping("/satellites")
+    @GetMapping("/api/satellites")
     public List<SatelliteInfoDto> getSatelliteList(@RequestParam(value = "code", required = false) String satellieCode,
                                                    @RequestParam(required = false, defaultValue = "0") int startAt,
                                                    @RequestParam(required = false, defaultValue = "50") int maxResult){
         return satelliteService.getSatelliteList(satellieCode,startAt,maxResult);
     }
 
-    @GetMapping("/satellites/{satelliteCode}")
+    @GetMapping("/api/satellites/{satelliteCode}")
     public SatelliteInfoDto getSatelliteInfo(@PathVariable String satelliteCode){
         return satelliteService.getSatelliteInfo(satelliteCode);
     }
 
-    @PostMapping("/satellites")
+    @PostMapping("/api/satellites")
     public SatelliteInfoDto createSatellite(@RequestBody SatelliteInfoDto reqForm){
         return satelliteService.createSatellite(reqForm);
     }
 
-    @PutMapping("/satellites/{satelliteCode}")
+    @PutMapping("/api/satellites/{satelliteCode}")
     public SatelliteInfoDto updateSatellite(@PathVariable String satelliteCode,
                                             @RequestBody SatelliteInfoDto reqForm){
         return satelliteService.updateSatellite(satelliteCode,reqForm);
     }
 
-    @DeleteMapping("/satellites/{satelliteCode}")
+    @DeleteMapping("/api/satellites/{satelliteCode}")
     public String deleteSatellite(@PathVariable String satelliteCode){
         return satelliteService.deleteSatellite(satelliteCode);
     }
 
-    @GetMapping("satellites/{satelliteCode}/meta")
+    @GetMapping("/api/satellites/{satelliteCode}/meta")
     public SatelliteMetaInfoDto getTmMeta(@PathVariable String satelliteCode){
         return satelliteService.getSatelliteMeta(satelliteCode);
     }

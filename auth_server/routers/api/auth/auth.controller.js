@@ -11,19 +11,34 @@ exports.login = (req,res)=>{
     return new Promise((resolve,rejcet)=>{
       let userModel = require("../../../models/user")(db.sequelize,db.Sequelize.DataTypes)
       userModel.findAll({
-        attributes:["user_id","password"],
+        attributes:["user_id","password","role"],
         where:{user_id:{[Op.eq]:userId}}
       })
       .then(result=>{
         if(result.length == 0){ // 사용자가 존재하지 않는 경우
-          throw new error("user does not exist")
+          rejcet("user does not exist")
         }
         let user = result[0].dataValues;
         resolve(user)
       })
     })
-    
   }
+  
+  const getRoleNameByRoleId = (user) =>{
+    return new Promise((resolve,reject)=>{
+      let roleModel = require("../../../models/role")(db.sequelize,db.Sequelize.DataTypes);
+      var role_id = user.role
+      roleModel.findOne({
+        attributes:["role_name"],
+        where:{role_id:{[Op.eq]:role_id}}
+      })
+      .then(result=>{
+        user.role = result;
+        resolve(user);
+      })
+    })
+  }
+
   const checkUser = (user)=>{
     // 비밀번호 확인
     if(user.password !== password){
@@ -32,7 +47,8 @@ exports.login = (req,res)=>{
       return new Promise((resolve,reject)=>{
         jwt.sign(
           { // jwt payload
-            _id:user.userId
+            _id:user.user_id,
+            role:user.role
           },
           secret, // jwt secret
           { // jwt options
@@ -68,6 +84,7 @@ exports.login = (req,res)=>{
   
     // 로그인 처리
   getUser(userId)
+    .then(getRoleNameByRoleId)
     .then(checkUser)
     .then(respond)// resolve
     .catch(onError) // reject

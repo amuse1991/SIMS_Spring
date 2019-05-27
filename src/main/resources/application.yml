@@ -17,7 +17,7 @@ spring:
   datasource:
     url: jdbc:mysql://localhost:3306/simsdb_local?useUnicode=true&charaterEncoding=utf-8?&serverTimezone=UTC
     username: "local_admin"
-    password: "01062581441"
+    password: "asd8528544!"
     driver-class-name: com.mysql.jdbc.Driver
     platform: mysql
 

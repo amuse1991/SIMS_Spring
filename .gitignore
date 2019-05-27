@@ -40,3 +40,7 @@ HELP.md
 ### gateway ###
 /gateway/node_modules
 /gateway/config.js
+
+### user server ###
+/user_server/node_modules
+/user_server/config.js

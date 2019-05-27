@@ -1,14 +1,15 @@
-const apiCaller = require("../../utils/apiCaller")
+const apiCaller = require("../../utils/apiCaller");
+const uri = require("../routeUri");
+
 module.exports.login = (req,res)=>{
-    let userId = req.body.userId;
+    let userId = req.body.user_id;
     let password = req.body.password
-    console.log("login called")
-    apiCaller("http://localhost:3300/api/auth/login",{userId:userId,password:password})
+    apiCaller(uri.auth.login(),{userId:userId,password:password})
         .post()
         .then(data=>{
-            console.log(data)
+            res.status(200).json(data)
         })
         .catch(err=>{
-            console.log(err)
+            res.status(403).json(err)
         })
 }

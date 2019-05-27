@@ -14,29 +14,29 @@ public class UsersController {
 
     private UserServiceImpl userService;
 
-    @PostMapping("/users")
+    @PostMapping("/api/users")
     public UserInfoResDto createUser(@RequestBody UserInfoReqDto reqData){
         return userService.createUser(reqData);
     }
 
-    @GetMapping("/users")
+    @GetMapping("/api/users")
     public List<UserInfoResDto> getUserList(@RequestParam(required = false, defaultValue = "0") int startAt,
                                            @RequestParam(required = false, defaultValue = "50") int maxResult){
         return userService.getUserList(startAt,maxResult);
     }
 
-    @GetMapping("/users/{userKey}")
+    @GetMapping("/api/users/{userKey}")
     public UserInfoResDto getUser(@PathVariable Long userKey){
         return userService.getUser(userKey);
     }
 
-    @PutMapping("/users/{userKey}")
+    @PutMapping("/api/users/{userKey}")
     public UserInfoResDto updateUser(@PathVariable Long userKey,
                            @RequestBody UserInfoReqDto reqData){
         return userService.updateUser(userKey,reqData);
     }
 
-    @DeleteMapping("/users/{userKey}")
+    @DeleteMapping("/api/users/{userKey}")
     public String deleteUser(@PathVariable Long userKey){
         return userService.deleteUser(userKey);
     }
