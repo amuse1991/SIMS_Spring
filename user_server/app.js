@@ -1,8 +1,3 @@
-const express = require("express");
-const bodyParser = require("body-parser");
-const morgan = require("morgan"); 
-const db = require("./db")
-
 /* =========================
     load the dependencies
 ============================*/
