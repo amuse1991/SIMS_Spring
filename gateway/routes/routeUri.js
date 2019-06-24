@@ -13,7 +13,7 @@ module.exports = {
         user : userServerBasePath
     },
     users:{
-        createUser: () =>`${userServerBasePath}/api/users`
+        users: (userId) => userId===undefined?`${userServerBasePath}/api/users`:`${userServerBasePath}/api/users/${userId}`
     },
     auth:{
         login: () =>`${authServerBasePath}/api/auth/login`

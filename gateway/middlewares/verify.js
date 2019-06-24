@@ -6,6 +6,7 @@
 
 // requiredRole : api가 요구하는 접근 권한
 const verify = function(requiredRole){
+    
     const getRoleLevel = (roleName)=>{
         switch(roleName){
             case "admin":
@@ -14,6 +15,16 @@ const verify = function(requiredRole){
                 return 1
         }
     }
+
+    const getRoleName = (roleLevel)=>{
+        switch(roleLevel){
+            case 0 :
+                return "admin"
+            case 1 :
+                return "user"
+        }
+    }
+
     return (req,res,next) => {
         const token = req.decoded;
         let userRole = getRoleLevel(token.role.role_name);
@@ -27,7 +38,10 @@ const verify = function(requiredRole){
         if(requiredRole <= userRole){
             next()
         }else{
-            throw new error(`Unable to access api. required : ${requiredRole} , current : ${userRole}`)
+            res.status(403).send({
+                success:false,
+                message:`Unable to access api. required : ${getRoleName(requiredRole)} , current : ${getRoleName(userRole)}`
+            })
         }
     }
 }

@@ -25,7 +25,7 @@ if(process.env.NODE_ENV !== 'test'){
 }
 
 // api 라우터 설정
-app.use("/users",require("./api"))
+app.use("/api/users",require("./api"))
 
 // 서버 listen
 db.sequelize

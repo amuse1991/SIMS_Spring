@@ -6,7 +6,6 @@ module.exports.createUser = (req,res)=>{
 
     const createUser = async (reqObj)=>{
         const {user_id, password, name, dept, position, email, phone, role} = reqObj;
-        // let userModel = require("../models/user")(db.sequelize,db.Sequelize.DataTypes);
         await userModel.create({user_id:user_id, password:password, name:name, dept:dept, 
             position:position, email:email, phone:phone, role:role})
     }
@@ -47,6 +46,7 @@ module.exports.getUserList = (req,res)=>{
         .then(respond)
         .catch(onError)
 }
+
 // 유저 정보 조회
 module.exports.getUserInfo = (req,res)=>{
     const userId = req.params.user_id;
@@ -66,6 +66,7 @@ module.exports.getUserInfo = (req,res)=>{
         .then(respond)
         .catch(onError)
 }
+
 // 유저 정보 수정
 module.exports.updateUser = (req,res)=>{
     const userId = req.params.user_id;

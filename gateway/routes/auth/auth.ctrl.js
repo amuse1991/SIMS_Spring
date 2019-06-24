@@ -4,8 +4,8 @@ const uri = require("../routeUri");
 module.exports.login = (req,res)=>{
     let userId = req.body.user_id;
     let password = req.body.password
-    apiCaller(uri.auth.login(),{userId:userId,password:password})
-        .post()
+    apiCaller(uri.auth.login())
+        .post({userId:userId,password:password})
         .then(data=>{
             res.status(200).json(data)
         })
